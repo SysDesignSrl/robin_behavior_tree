@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="use_gui" default="false"/>
+  <arg name="bt_tree" default="$(find robin_behavior_tree)/bt_trees/test_tree.xml"/>
+
+  <!-- Behavior Tree -->
+  <node name="behavior_tree" pkg="robin_behavior_tree" type="behavior_tree_node" output="screen">
+    <param name="tree_path" value="$(arg bt_tree)"/>
+  </node>
+
+  <!-- Groot -->
+  <node if="$(arg use_gui)"
+        name="$(anon groot)" pkg="groot" type="Groot" output="screen"/>
+
+</launch>

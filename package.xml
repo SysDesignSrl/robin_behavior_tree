@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robin_behavior_tree</name>
+  <version>0.0.0</version>
+  <description>
+    The robin_behavior_tree package
+  </description>
+  <license>TODO</license>
+
+  <maintainer email="nicola@sysdesign.it">Nicola Conti</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>behaviortree_cpp_v3</depend>
+  <depend>robin_bridge_generated</depend>
+  <depend>boost</depend>
+
+</package>
