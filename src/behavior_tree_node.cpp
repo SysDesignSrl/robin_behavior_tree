@@ -8,7 +8,7 @@
 #include <behaviortree_cpp_v3/loggers/bt_file_logger.h>
 #include <behaviortree_cpp_v3/loggers/bt_zmq_publisher.h>
 //
-#include <robin_behavior_tree//behavior_tree/CommonActionNode.h>
+#include <robin_behavior_tree/behavior_tree/CommonActionNode.h>
 
 
 template<class T>

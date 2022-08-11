@@ -13,12 +13,12 @@
                 <SetBlackboard output_key="GRIPPER_CLOSE_SOFT_RELATIVE" value="32"/>
                 <SetBlackboard output_key="GRIPPER_CLOSE_HARD_RELATIVE" value="33"/>
 
-                <CommonAction name="GripperReset" command_id="{GRIPPER_RESET}" error_id="{error_id}"/>
-                <CommonAction name="GripperHome" command_id="{GRIPPER_HOME}" error_id="{error_id}"/>
+                <CommonAction name="GripperReset" command_topic="gripper_command" feedback_topic="gripper_feedback" command_id="{GRIPPER_RESET}" error_id="{error_id}"/>
+                <CommonAction name="GripperHome"  command_topic="gripper_command" feedback_topic="gripper_feedback" command_id="{GRIPPER_HOME}"  error_id="{error_id}"/>
 
-                <CommonAction name="GripperOpen" command_id="{GRIPPER_OPEN}" error_id="{error_id}"/>
-                <CommonAction name="GripperClose" command_id="{GRIPPER_CLOSE_HARD_LONG_SIDE}" error_id="{error_id}"/>
-                <CommonAction name="GripperTinyOpen" command_id="{GRIPPER_OPEN_TINY_RELATIVE}" error_id="{error_id}"/>
+                <CommonAction name="GripperOpen"  command_topic="gripper_command" feedback_topic="gripper_feedback" command_id="{GRIPPER_OPEN}" error_id="{error_id}"/>
+                <CommonAction name="GripperClose" command_topic="gripper_command" feedback_topic="gripper_feedback" command_id="{GRIPPER_CLOSE_HARD_LONG_SIDE}"  error_id="{error_id}"/>
+                <CommonAction name="GripperTinyOpen" command_topic="gripper_command" feedback_topic="gripper_feedback" command_id="{GRIPPER_OPEN_TINY_RELATIVE}" error_id="{error_id}"/>
 
             </SequenceStar>
         <!-- </ForceFailure> -->

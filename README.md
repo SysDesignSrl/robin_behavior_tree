@@ -9,11 +9,11 @@ behavior_tree_node \
   _The program._
 
 ### Published Topics
-/robin/\<device\>/command ([robin_bridge_generated/CommonCommand](https://github.com/SysDesignSrl/robin_bridge_generated/blob/main/msg/CommonCommand.msg)) \
+/robin/\<device\>\_command ([robin_bridge_generated/CommonCommand](https://github.com/SysDesignSrl/robin_bridge_generated/blob/main/msg/CommonCommand.msg)) \
   _The command sent to the device._
 
 ### Subscribed Topics
-/robin/\<device\>/feedback ([robin_bridge_generated/CommonFeedback](https://github.com/SysDesignSrl/robin_bridge_generated/blob/main/msg/CommonFeedback.msg)) \
+/robin/\<device\>\_feedback ([robin_bridge_generated/CommonFeedback](https://github.com/SysDesignSrl/robin_bridge_generated/blob/main/msg/CommonFeedback.msg)) \
   _The feedback received from the device._
 
 ### Parameters

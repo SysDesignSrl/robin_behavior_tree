@@ -43,8 +43,16 @@ public:
   CommonActionNode(ros::NodeHandle &node, const std::string &name, const BT::NodeConfiguration &config)
   : node(node), BT::StatefulActionNode(name, config)
   {
-    command_pub = node.advertise<robin_bridge_generated::CommonCommand>("command", 10, true);
-    feedback_sub = node.subscribe<robin_bridge_generated::CommonFeedback>("feedback", 10, boost::bind(&CommonActionNode::feedback_cb, this, _1));
+    if (command_pub == nullptr)
+    {
+      std::string topic_name = getInput<std::string>("command_topic").value();
+      command_pub = node.advertise<robin_bridge_generated::CommonCommand>(topic_name, 10, true);
+    }
+    if (feedback_sub == nullptr)
+    {
+      std::string topic_name = getInput<std::string>("feedback_topic").value();
+      feedback_sub = node.subscribe<robin_bridge_generated::CommonFeedback>(topic_name, 10, boost::bind(&CommonActionNode::feedback_cb, this, _1));
+    }
   }
 
   void feedback_cb(const robin_bridge_generated::CommonFeedback::ConstPtr &msg)
@@ -60,6 +68,8 @@ public:
   {
     return
     {
+      BT::InputPort<std::string>("command_topic"),
+      BT::InputPort<std::string>("feedback_topic"),
       BT::InputPort<int>("command_id"),
       BT::OutputPort<int>("error_id"),
     };
