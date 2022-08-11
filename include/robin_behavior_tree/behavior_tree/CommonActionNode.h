@@ -22,7 +22,6 @@ private:
   const std::string LOGNAME = "CommonActionNode";
 
   ros::NodeHandle node;
-
   ros::Publisher command_pub;
   ros::Subscriber feedback_sub;
 
@@ -41,9 +40,8 @@ private:
 
 public:
 
-  CommonActionNode(const std::string &name, const BT::NodeConfiguration &config)
-  : BT::StatefulActionNode(name, config),
-    node("/robin")
+  CommonActionNode(ros::NodeHandle &node, const std::string &name, const BT::NodeConfiguration &config)
+  : node(node), BT::StatefulActionNode(name, config)
   {
     command_pub = node.advertise<robin_bridge_generated::CommonCommand>("command", 10, true);
     feedback_sub = node.subscribe<robin_bridge_generated::CommonFeedback>("feedback", 10, boost::bind(&CommonActionNode::feedback_cb, this, _1));

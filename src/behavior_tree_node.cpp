@@ -11,6 +11,18 @@
 #include <robin_behavior_tree//behavior_tree/CommonActionNode.h>
 
 
+template<class T>
+static void registerRobinAction(BT::BehaviorTreeFactory &factory, const std::string &name, ros::NodeHandle &node_handle)
+{
+  BT::NodeBuilder builder = [&node_handle](const std::string &name, BT::NodeConfiguration config)
+  {
+    return std::make_unique<T>(node_handle, name, config);
+  };
+
+  factory.registerBuilder<T>(name, builder);
+}
+
+
 int main(int argc, char* argv[])
 {
   ros::init(argc, argv, "behavior_tree_node");
@@ -31,7 +43,7 @@ int main(int argc, char* argv[])
 
   /* BEHAVIOR TREE */
   BT::BehaviorTreeFactory bt_factory;
-  bt_factory.registerNodeType<sysdesign::bt::CommonActionNode>("CommonAction");
+  registerRobinAction<sysdesign::bt::CommonActionNode>(bt_factory, "CommonAction", node);
 
   auto tree = bt_factory.createTreeFromFile(tree_path);
 
