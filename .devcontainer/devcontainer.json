@@ -1,0 +1,33 @@
+{
+	"name": "Robin - BehaviorTree",
+	"build": {
+		"context": "..",
+		"dockerfile": "Dockerfile"
+	},
+	"remoteUser": "vscode",
+	"workspaceMount": "type=bind,source=${localWorkspaceFolder},target=${containerWorkspaceFolder}/src/robin_behavior_tree,consistency=cached", 
+	"workspaceFolder": "/home/vscode/workspace",
+	"postCreateCommand": "vcs import src < src/robin_behavior_tree/.rosinstall && rosdep update && rosdep install --from-paths src --ignore-src -y -r",
+	"runArgs": [ "--network=host" ],
+	"capAdd": [ "SYS_PTRACE" ],
+	"securityOpt": [ "seccomp=unconfined" ],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"ms-vscode.cmake-tools",
+				"ms-python.python",
+				"ms-azuretools.vscode-docker"
+			],
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"terminal.integrated.profiles.linux": {
+					"bash": {
+						"path": "/usr/bin/bash"
+					}
+				}
+			}
+		}
+	}
+}

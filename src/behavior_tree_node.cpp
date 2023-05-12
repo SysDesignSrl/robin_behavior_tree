@@ -7,10 +7,10 @@
 #include <behaviortree_cpp_v3/loggers/bt_cout_logger.h>
 #include <behaviortree_cpp_v3/loggers/bt_file_logger.h>
 #include <behaviortree_cpp_v3/loggers/bt_zmq_publisher.h>
+#include <behaviortree_ros/bt_topic_sub_node.h>
 //
 #include <robin_behavior_tree/actions/CommonAction.h>
-#include <robin_behavior_tree/actions/Semaphore.h>
-#include <robin_behavior_tree/actions/ProcessCode.h>
+#include <robin_behavior_tree/actions/SubscribePalletizingOptions.h>
 
 
 template<class T>
@@ -20,7 +20,6 @@ static void registerRobinAction(BT::BehaviorTreeFactory &factory, const std::str
   {
     return std::make_unique<T>(node_handle, name, config);
   };
-
   factory.registerBuilder<T>(name, builder);
 }
 
@@ -46,9 +45,11 @@ int main(int argc, char* argv[])
 
   /* BEHAVIOR TREE */
   BT::BehaviorTreeFactory bt_factory;
-  registerRobinAction<sysdesign::bt::CommonAction>(bt_factory, "CommonAction", node_ns);
-  registerRobinAction<sysdesign::bt::Semaphore>(bt_factory, "Semaphore", node_ns);
-  registerRobinAction<sysdesign::bt::ProcessCode>(bt_factory, "ProcessCode", node_ns);
+
+  registerRobinAction<sysdesign::bt::CommonAction>(bt_factory, "CommonAction", node);
+  
+  BT::RegisterRosTopicSubscriber<sysdesign::bt::SubscribePalletizingOptions>(bt_factory, "SubscribePalletizingOptions", node);
+
 
   BT::Tree bt_tree;
   try 
@@ -71,7 +72,7 @@ int main(int argc, char* argv[])
   // BT::RosoutLogger rosout_logger(tree.rootNode());
 
   /* GROOT */
-  BT::PublisherZMQ publisher_zmq(bt_tree);
+  // BT::PublisherZMQ publisher_zmq(tree);
 
   // Loop
   ros::Rate rate(freq);

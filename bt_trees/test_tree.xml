@@ -2,25 +2,35 @@
 <root main_tree_to_execute="TestTree">
     <!-- ////////// -->
     <BehaviorTree ID="TestTree">
-        <!-- <ForceFailure> -->
-            <SequenceStar>
-                <SetBlackboard output_key="RUNNING" value="10"/>
-                <SetBlackboard output_key="SUCCESS" value="11"/>
-                <SetBlackboard output_key="FAILURE" value="-11"/>
+        <ForceFailure>
+        <Sequence>
 
-                <Semaphore request_topic="a_request" consensus_topic="a_consensus"/>
-                <Semaphore request_topic="b_request" consensus_topic="b_consensus"/>
-                <Semaphore request_topic="c_request" consensus_topic="c_consensus"/>
-                <Semaphore request_topic="d_request" consensus_topic="d_consensus"/>
+            <!-- Palletizing Options -->
+            <SubscribePalletizingOptions name="Palletizing Options" topic_name="/dsr01/robin/lft/palletizing_options"
+                tool_name="{tool_name}"
+                object_name="{object_name}"
+                object_weight="{object_weight}"
+                pattern_file="{pattern_file}"
+                transform_name="{transform_name}"/>
 
-                <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{RUNNING}"/>
-                <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{SUCCESS}"/>
+            <!-- Switch -->
+            <Switch6 variable="{transform_name}" case_1="layer0" case_2="layer1" case_3="layer2" case_4="layer3" case_5="layer4" case_6="layer5">
+                <SetBlackboard output_key="command_id" value="0"/>
+                <SetBlackboard output_key="command_id" value="0"/>
+                <SetBlackboard output_key="command_id" value="0"/>
+                <SetBlackboard output_key="command_id" value="0"/>
+                <SetBlackboard output_key="command_id" value="1"/>
+                <SetBlackboard output_key="command_id" value="2"/>
+                <AlwaysFailure/>
+            </Switch6>
 
-                <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{RUNNING}"/>
-                <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{FAILURE}"/>
+            <!-- Common Action -->
+            <CommonAction name="Common Action" 
+                command_topic="/dsr01/robin/lifter_controller/command" feedback_topic="/dsr01/robin/lifter_controller/feedback" 
+                command_id="{command_id}" error_id="{error_id}"/>
 
-            </SequenceStar>
-        <!-- </ForceFailure> -->
+        </Sequence>
+        </ForceFailure>
     </BehaviorTree>
     <!-- ////////// -->
 </root>

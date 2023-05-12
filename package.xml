@@ -7,12 +7,15 @@
   </description>
   <license>TODO</license>
 
+  <author email="nicola@sysdesign.it">Nicola Conti</author>
   <maintainer email="nicola@sysdesign.it">Nicola Conti</maintainer>
+  <maintainer email="elia@sysdesign.it">Elia Suardi</maintainer>
 
   <buildtool_depend>catkin</buildtool_depend>
 
   <depend>roscpp</depend>
   <depend>behaviortree_cpp_v3</depend>
+  <depend>behaviortree_ros</depend>
   <depend>robin_bridge_generated</depend>
   <depend>boost</depend>
 

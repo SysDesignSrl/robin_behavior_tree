@@ -5,3 +5,9 @@
 - git:
     local-name: robin_bridge_generated
     uri: https://github.com/SysDesignSrl/robin_bridge_generated.git
+    version: pallcube
+
+# BehaviorTree
+- git:
+    local-name: behaviortree_ros
+    uri: https://github.com/SysDesignSrl/BehaviorTree.ROS.git
