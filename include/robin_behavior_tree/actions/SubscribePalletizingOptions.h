@@ -21,6 +21,10 @@ protected:
 
   void topicCallback(const robin_bridge_generated::PalletizingOptions::ConstPtr &message) override
   {
+    // skip
+    setOutput("skip", message->skip);
+    ROS_DEBUG_NAMED(LOGNAME, "skip: %s", (message->skip) ? "True" : "False");
+
     // tool
     setOutput("tool_name", message->tool_name);
     ROS_DEBUG_STREAM_NAMED(LOGNAME, "tool_name: " << message->tool_name);
@@ -49,6 +53,7 @@ public:
   {
     return
     {
+      BT::OutputPort<bool>("skip"),
       BT::OutputPort<std::string>("tool_name"),
       BT::OutputPort<std::string>("object_name"),
       BT::OutputPort<double>("object_weight"),
