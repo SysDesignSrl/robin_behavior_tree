@@ -8,7 +8,7 @@
 #include <behaviortree_cpp_v3/loggers/bt_file_logger.h>
 #include <behaviortree_cpp_v3/loggers/bt_zmq_publisher.h>
 //
-#include <robin_behavior_tree/behavior_tree/CommonActionNode.h>
+#include <robin_behavior_tree/actions/CommonAction.h>
 
 
 template<class T>
@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 
   /* BEHAVIOR TREE */
   BT::BehaviorTreeFactory bt_factory;
-  registerRobinAction<sysdesign::bt::CommonActionNode>(bt_factory, "CommonAction", node);
+  registerRobinAction<sysdesign::bt::CommonAction>(bt_factory, "CommonAction", node);
 
   auto tree = bt_factory.createTreeFromFile(tree_path);
 

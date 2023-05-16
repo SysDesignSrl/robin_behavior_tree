@@ -1,15 +1,12 @@
 #ifndef ROBIN_BEHAVIOR_TREE_COMMON_ACTION_NODE_H
 #define ROBIN_BEHAVIOR_TREE_COMMON_ACTION_NODE_H
-// STL
 #include <string>
-#include <vector>
 // ROS
 #include <ros/ros.h>
 #include <ros/console.h>
+#include <behaviortree_cpp_v3/action_node.h>
 #include <robin_bridge_generated/CommonCommand.h>
 #include <robin_bridge_generated/CommonFeedback.h>
-// BehaviorTree.CPP
-#include <behaviortree_cpp_v3/action_node.h>
 // Boost
 #include <boost/bind.hpp>
 
@@ -17,9 +14,9 @@
 namespace sysdesign { namespace bt {
 
 
-class CommonActionNode : public BT::StatefulActionNode {
+class CommonAction : public BT::StatefulActionNode {
 private:
-  const std::string LOGNAME = "CommonActionNode";
+  const std::string LOGNAME = "CommonAction";
 
   ros::NodeHandle node;
   ros::Publisher command_pub;
@@ -40,18 +37,18 @@ private:
 
 public:
 
-  CommonActionNode(ros::NodeHandle &node, const std::string &name, const BT::NodeConfiguration &config)
+  CommonAction(ros::NodeHandle &node, const std::string &name, const BT::NodeConfiguration &config)
   : node(node), BT::StatefulActionNode(name, config)
   {
     if (command_pub == nullptr)
     {
-      std::string topic_name = getInput<std::string>("command_topic").value();
+      auto topic_name = getInput<std::string>("command_topic").value();
       command_pub = node.advertise<robin_bridge_generated::CommonCommand>(topic_name, 10, true);
     }
     if (feedback_sub == nullptr)
     {
-      std::string topic_name = getInput<std::string>("feedback_topic").value();
-      feedback_sub = node.subscribe<robin_bridge_generated::CommonFeedback>(topic_name, 10, boost::bind(&CommonActionNode::feedback_cb, this, _1));
+      auto topic_name = getInput<std::string>("feedback_topic").value();
+      feedback_sub = node.subscribe<robin_bridge_generated::CommonFeedback>(topic_name, 10, boost::bind(&CommonAction::feedback_cb, this, _1));
     }
   }
 
