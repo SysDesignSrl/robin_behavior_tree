@@ -17,31 +17,39 @@ class SubscribePalletizingOptions : public BT::RosTopicSubscriberNode<robin_brid
 private:
   const std::string LOGNAME = "SubscribePalletizingOptions";
 
+  robin_bridge_generated::PalletizingOptions message;
+
 protected:
 
   void topicCallback(const robin_bridge_generated::PalletizingOptions::ConstPtr &message) override
   {
+    this->message = *message;
+    node_status = BT::NodeStatus::SUCCESS;
+  }
+
+  BT::NodeStatus tick() override
+  {
     // skip
-    setOutput("skip", message->skip);
-    ROS_DEBUG_NAMED(LOGNAME, "skip: %s", (message->skip) ? "True" : "False");
+    setOutput<bool>("skip", message.skip);
+    ROS_DEBUG_NAMED(LOGNAME, "skip: %s", (message.skip) ? "True" : "False");
 
     // tool
-    setOutput("tool_name", message->tool_name);
-    ROS_DEBUG_STREAM_NAMED(LOGNAME, "tool_name: " << message->tool_name);
+    setOutput<std::string>("tool_name", message.tool_name);
+    ROS_DEBUG_STREAM_NAMED(LOGNAME, "tool_name: " << message.tool_name);
 
     // object
-    setOutput("object_name", message->object_name);
-    ROS_DEBUG_STREAM_NAMED(LOGNAME, "object_name: " << message->object_name);
-    setOutput("object_weight", message->object_weight);
-    ROS_DEBUG_NAMED(LOGNAME, "object_weight: %.1fKg", message->object_weight);
+    setOutput<std::string>("object_name", message.object_name);
+    ROS_DEBUG_STREAM_NAMED(LOGNAME, "object_name: " << message.object_name);
+    setOutput<double>("object_weight", message.object_weight);
+    ROS_DEBUG_NAMED(LOGNAME, "object_weight: %.1fKg", message.object_weight);
 
     // pattern manager
-    setOutput("pattern_file", message->pattern_file);
-    ROS_DEBUG_STREAM_NAMED(LOGNAME, "pattern_file: " << message->pattern_file);
-    setOutput("transform_name", message->transform_name);
-    ROS_DEBUG_STREAM_NAMED(LOGNAME, "transform_name: " << message->transform_name);
+    setOutput<std::string>("pattern_file", message.pattern_file);
+    ROS_DEBUG_STREAM_NAMED(LOGNAME, "pattern_file: " << message.pattern_file);
+    setOutput<std::string>("transform_name", message.transform_name);
+    ROS_DEBUG_STREAM_NAMED(LOGNAME, "transform_name: " << message.transform_name);
 
-    node_status = BT::NodeStatus::SUCCESS;
+    return node_status;
   }
 
 public:
