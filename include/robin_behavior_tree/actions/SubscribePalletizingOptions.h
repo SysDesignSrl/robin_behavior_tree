@@ -16,7 +16,6 @@ namespace sysdesign { namespace bt {
 class SubscribePalletizingOptions : public BT::RosTopicSubscriberNode<robin_bridge_generated::PalletizingOptions> {
 private:
   const std::string LOGNAME = "SubscribePalletizingOptions";
-
   robin_bridge_generated::PalletizingOptions message;
 
 protected:
@@ -32,6 +31,9 @@ protected:
     // skip
     setOutput<bool>("skip", message.skip);
     ROS_DEBUG_NAMED(LOGNAME, "skip: %s", (message.skip) ? "True" : "False");
+    // skip object
+    setOutput<bool>("skip_object", message.skip_object);
+    ROS_DEBUG_NAMED(LOGNAME, "skip_object: %s", (message.skip_object) ? "True" : "False");
 
     // tool
     setOutput<std::string>("tool_name", message.tool_name);
@@ -48,6 +50,8 @@ protected:
     ROS_DEBUG_STREAM_NAMED(LOGNAME, "pattern_file: " << message.pattern_file);
     setOutput<std::string>("transform_name", message.transform_name);
     ROS_DEBUG_STREAM_NAMED(LOGNAME, "transform_name: " << message.transform_name);
+    setOutput<int>("start_index", message.start_index);
+    ROS_DEBUG_STREAM_NAMED(LOGNAME, "start_index: " << message.start_index);
 
     return node_status;
   }
@@ -62,11 +66,13 @@ public:
     return
     {
       BT::OutputPort<bool>("skip"),
+      BT::OutputPort<bool>("skip_object"),
       BT::OutputPort<std::string>("tool_name"),
       BT::OutputPort<std::string>("object_name"),
       BT::OutputPort<double>("object_weight"),
       BT::OutputPort<std::string>("pattern_file"),
       BT::OutputPort<std::string>("transform_name"),
+      BT::OutputPort<int>("start_index"),
     };
   }
 
