@@ -50,6 +50,9 @@ protected:
     ROS_DEBUG_STREAM_NAMED(LOGNAME, "pattern_file: " << message.pattern_file);
     setOutput<std::string>("transform_name", message.transform_name);
     ROS_DEBUG_STREAM_NAMED(LOGNAME, "transform_name: " << message.transform_name);
+    setOutput<bool>("reload_pattern", message.reload_pattern);
+    ROS_DEBUG_NAMED(LOGNAME, "reload_pattern: %s", (message.reload_pattern) ? "True" : "False");
+
     setOutput<int>("start_index", message.start_index);
     ROS_DEBUG_STREAM_NAMED(LOGNAME, "start_index: " << message.start_index);
 
@@ -72,6 +75,7 @@ public:
       BT::OutputPort<double>("object_weight"),
       BT::OutputPort<std::string>("pattern_file"),
       BT::OutputPort<std::string>("transform_name"),
+      BT::OutputPort<bool>("reload_pattern"),
       BT::OutputPort<int>("start_index"),
     };
   }

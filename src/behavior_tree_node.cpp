@@ -46,9 +46,9 @@ int main(int argc, char* argv[])
   /* BEHAVIOR TREE */
   BT::BehaviorTreeFactory bt_factory;
 
-  registerRobinAction<sysdesign::bt::CommonAction>(bt_factory, "CommonAction", node);
-  
-  BT::RegisterRosTopicSubscriber<sysdesign::bt::SubscribePalletizingOptions>(bt_factory, "SubscribePalletizingOptions", node);
+  registerRobinAction<sysdesign::bt::CommonAction>(bt_factory, "CommonAction", node_ns);
+
+  BT::RegisterRosTopicSubscriber<sysdesign::bt::SubscribePalletizingOptions>(bt_factory, "SubscribePalletizingOptions", node_ns);
 
 
   BT::Tree bt_tree;

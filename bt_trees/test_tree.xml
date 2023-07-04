@@ -6,7 +6,7 @@
         <Sequence>
 
             <!-- Palletizing Options -->
-            <SubscribePalletizingOptions name="Palletizing Options" topic_name="/dsr01/robin/lft/palletizing_options"
+            <SubscribePalletizingOptions name="Palletizing Options" topic_name="robin/lft/palletizing_options"
                 tool_name="{tool_name}"
                 object_name="{object_name}"
                 object_weight="{object_weight}"
@@ -26,7 +26,7 @@
 
             <!-- Common Action -->
             <CommonAction name="Common Action" 
-                command_topic="/dsr01/robin/lifter_controller/command" feedback_topic="/dsr01/robin/lifter_controller/feedback" 
+                command_topic="/dsr01/robin/lifter_controller/command" feedback_topic="robin/lifter_controller/feedback" 
                 command_id="{command_id}" error_id="{error_id}"/>
 
         </Sequence>
