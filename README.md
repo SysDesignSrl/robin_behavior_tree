@@ -1,20 +1,9 @@
 # Robin - BehaviorTree.CPP
 
-## Description
-This package implements a common action node useful to send custom commands to
-external devices and monitoring the execution.
+## Overview
+This package implements some commonly used BT Actions that communicates with the underlying CODESYS runtime.
 
-## Nodes
-behavior_tree_node \
-  _The program._
-
-### Published Topics
-/robin/\<device\>\_command ([robin_bridge_generated/CommonCommand](https://github.com/SysDesignSrl/robin_bridge_generated/blob/main/msg/CommonCommand.msg)) \
-  _The command sent to the device._
-
-### Subscribed Topics
-/robin/\<device\>\_feedback ([robin_bridge_generated/CommonFeedback](https://github.com/SysDesignSrl/robin_bridge_generated/blob/main/msg/CommonFeedback.msg)) \
-  _The feedback received from the device._
-
-### Parameters
-TODO
+## Continuous Integration
+| Branch | Status                                                                                                                                                                               |
+|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| main   | [![CI](https://github.com/SysDesignSrl/robin_behavior_tree/actions/workflows/ci.yaml/badge.svg)](https://github.com/SysDesignSrl/robin_behavior_tree/actions/workflows/ci.yaml)      |
