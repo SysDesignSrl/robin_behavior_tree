@@ -1,0 +1,7 @@
+# Robin
+- git:
+    local-name: robin
+    uri: https://github.com/SysDesignSrl/robin.git
+- git:
+    local-name: robin_bridge_generated
+    uri: https://github.com/SysDesignSrl/robin_bridge_generated.git

@@ -24,6 +24,8 @@ jobs:
         id: action_ros_ci_step
         with:
           target-ros1-distro: noetic
+          vcs-repo-file-url: .rosinstall
+          import-token: ${{ secrets.GITHUB_TOKEN }}
       - 
         name: "Upload colcon logs (always)"
         uses: actions/upload-artifact@v3
