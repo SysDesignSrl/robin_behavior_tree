@@ -9,6 +9,8 @@
 #include <behaviortree_cpp_v3/loggers/bt_zmq_publisher.h>
 //
 #include <robin_behavior_tree/actions/CommonAction.h>
+#include <robin_behavior_tree/actions/Semaphore.h>
+#include <robin_behavior_tree/actions/ProcessCode.h>
 
 
 template<class T>
@@ -29,26 +31,38 @@ int main(int argc, char* argv[])
 
   // Node
   ros::NodeHandle node("~");
+  ros::NodeHandle node_ns("");
 
   // Parameters
   double freq = node.param("frequency", 1.0);
 
-  std::string tree_path;
-  if (!node.getParam("tree_path", tree_path))
+  std::string bt_file;
+  if (!node.getParam("bt_file", bt_file))
   {
-    std::string param_name = node.resolveName("tree_path");
+    std::string param_name = node.resolveName("bt_file");
     ROS_FATAL("Failed to retrieve '%s' parameter.", param_name.c_str());
     return 1;
   }
 
   /* BEHAVIOR TREE */
   BT::BehaviorTreeFactory bt_factory;
-  registerRobinAction<sysdesign::bt::CommonAction>(bt_factory, "CommonAction", node);
+  registerRobinAction<sysdesign::bt::CommonAction>(bt_factory, "CommonAction", node_ns);
+  registerRobinAction<sysdesign::bt::Semaphore>(bt_factory, "Semaphore", node_ns);
+  registerRobinAction<sysdesign::bt::ProcessCode>(bt_factory, "ProcessCode", node_ns);
 
-  auto tree = bt_factory.createTreeFromFile(tree_path);
+  BT::Tree bt_tree;
+  try 
+  {
+    bt_tree = bt_factory.createTreeFromFile(bt_file);
+  }
+  catch (const BT::RuntimeError &ex)
+  {
+    ROS_FATAL("Runtime Error: %s", ex.what());
+    return 1;
+  }
 
   /* LOGGER */
-  BT::StdCoutLogger logger(tree);
+  BT::StdCoutLogger logger(bt_tree);
 
   /* FILE LOGGER */
   // BT::FileLogger file_logger(tree, "bt_trace.fbl");
@@ -57,11 +71,11 @@ int main(int argc, char* argv[])
   // BT::RosoutLogger rosout_logger(tree.rootNode());
 
   /* GROOT */
-  BT::PublisherZMQ publisher_zmq(tree);
+  BT::PublisherZMQ publisher_zmq(bt_tree);
 
   // Loop
   ros::Rate rate(freq);
-  while (ros::ok() && (tree.tickRoot() != BT::NodeStatus::SUCCESS))
+  while (ros::ok() && (bt_tree.tickRoot() != BT::NodeStatus::SUCCESS))
   {
     rate.sleep();
     ros::spinOnce();

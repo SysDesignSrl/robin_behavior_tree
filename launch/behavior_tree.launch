@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="bt_file" default="$(find robin_behavior_tree)/bt_trees/test_tree.xml"/>
   <arg name="use_gui" default="false"/>
-  <arg name="bt_tree" default="$(find robin_behavior_tree)/bt_trees/test_tree.xml"/>
 
   <!-- Behavior Tree -->
   <node name="behavior_tree" pkg="robin_behavior_tree" type="behavior_tree_node" output="screen">
-    <param name="tree_path" value="$(arg bt_tree)"/>
+    <param name="frequency" value="10.0"/>
+    <param name="bt_file" value="$(arg bt_file)"/>
   </node>
 
   <!-- Groot -->

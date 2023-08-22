@@ -1,24 +1,23 @@
 <?xml version="1.0"?>
-<root main_tree_to_execute="Main">
+<root main_tree_to_execute="TestTree">
     <!-- ////////// -->
-    <BehaviorTree ID="Main">
+    <BehaviorTree ID="TestTree">
         <!-- <ForceFailure> -->
             <SequenceStar>
-                <SetBlackboard output_key="GRIPPER_HOME" value="10"/>
-                <SetBlackboard output_key="GRIPPER_RESET" value="11"/>
-                <SetBlackboard output_key="GRIPPER_OPEN" value="20"/>
-                <SetBlackboard output_key="GRIPPER_OPEN_TINY_RELATIVE" value="21"/>
-                <SetBlackboard output_key="GRIPPER_CLOSE_HARD_LONG_SIDE"  value="30"/>
-                <SetBlackboard output_key="GRIPPER_CLOSE_HARD_SHORT_SIDE" value="31"/>
-                <SetBlackboard output_key="GRIPPER_CLOSE_SOFT_RELATIVE" value="32"/>
-                <SetBlackboard output_key="GRIPPER_CLOSE_HARD_RELATIVE" value="33"/>
+                <SetBlackboard output_key="RUNNING" value="10"/>
+                <SetBlackboard output_key="SUCCESS" value="11"/>
+                <SetBlackboard output_key="FAILURE" value="-11"/>
 
-                <CommonAction name="GripperReset" command_topic="gripper_command" feedback_topic="gripper_feedback" command_id="{GRIPPER_RESET}" error_id="{error_id}"/>
-                <CommonAction name="GripperHome"  command_topic="gripper_command" feedback_topic="gripper_feedback" command_id="{GRIPPER_HOME}"  error_id="{error_id}"/>
+                <Semaphore request_topic="a_request" consensus_topic="a_consensus"/>
+                <Semaphore request_topic="b_request" consensus_topic="b_consensus"/>
+                <Semaphore request_topic="c_request" consensus_topic="c_consensus"/>
+                <Semaphore request_topic="d_request" consensus_topic="d_consensus"/>
 
-                <CommonAction name="GripperOpen"  command_topic="gripper_command" feedback_topic="gripper_feedback" command_id="{GRIPPER_OPEN}" error_id="{error_id}"/>
-                <CommonAction name="GripperClose" command_topic="gripper_command" feedback_topic="gripper_feedback" command_id="{GRIPPER_CLOSE_HARD_LONG_SIDE}"  error_id="{error_id}"/>
-                <CommonAction name="GripperTinyOpen" command_topic="gripper_command" feedback_topic="gripper_feedback" command_id="{GRIPPER_OPEN_TINY_RELATIVE}" error_id="{error_id}"/>
+                <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{RUNNING}"/>
+                <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{SUCCESS}"/>
+
+                <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{RUNNING}"/>
+                <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{FAILURE}"/>
 
             </SequenceStar>
         <!-- </ForceFailure> -->
