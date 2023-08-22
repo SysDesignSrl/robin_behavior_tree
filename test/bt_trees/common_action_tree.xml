@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="TestTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="TestTree">
+        <Sequence>
+			<SetBlackboard output_key="command_id" value="1"/>
+            <CommonAction command_topic="command" feedback_topic="feedback" command_id="{command_id}" error_id="{error_id}"/>
+        </Sequence>
+    </BehaviorTree>
+    <!-- ////////// -->
+</root>

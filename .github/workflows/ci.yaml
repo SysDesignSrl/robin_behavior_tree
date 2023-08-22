@@ -1,0 +1,40 @@
+name: "Continuous Integration"
+
+on:
+  push:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-20.04
+    steps:
+      - 
+        name: "Checkout"
+        uses: actions/checkout@v3
+      - 
+        name: "Setup ROS"
+        uses: ros-tooling/setup-ros@v0.6
+        with:
+          required-ros-distributions: noetic
+      - 
+        name: "Rollback numpy"
+        run: sudo pip3 install --force-reinstall numpy==1.21
+      - 
+        name: "Build & Test"
+        uses: ros-tooling/action-ros-ci@v0.3
+        id: action_ros_ci_step
+        with:
+          target-ros1-distro: noetic
+      - 
+        name: "Upload colcon logs (always)"
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: colcon-logs
+          path: ${{ steps.action_ros_ci_step.outputs.ros-workspace-directory-name }}/log
+      - 
+        name: "Upload test artifacts (on failure)"
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: test-results-${{ matrix.os }}
+          path: ${{ github.workspace }}/ros_ws/**/test_results/**/*.xml

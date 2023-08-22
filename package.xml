@@ -16,4 +16,7 @@
   <depend>robin_bridge_generated</depend>
   <depend>boost</depend>
 
+  <test_depend>rosunit</test_depend>
+  <test_depend>rostest</test_depend>
+
 </package>

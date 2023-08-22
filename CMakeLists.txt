@@ -85,10 +85,16 @@ install(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_robin_behavior_tree.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
+if(CATKIN_ENABLE_TESTING)
+  find_package(rostest REQUIRED)
+  
+  add_rostest_gtest(common_action_test test/common_action.test test/common_action_test.cpp)
+  target_link_libraries(common_action_test ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+  
+  add_rostest_gtest(semaphore_test test/semaphore.test test/semaphore_test.cpp)
+  target_link_libraries(semaphore_test ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+  
+  add_rostest_gtest(process_code_test test/process_code.test test/process_code_test.cpp)
+  target_link_libraries(process_code_test ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+endif()

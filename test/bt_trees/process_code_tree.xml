@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="TestTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="TestTree">
+        <Sequence>
+            <SetBlackboard output_key="RUNNING" value="10"/>
+            <SetBlackboard output_key="SUCCESS" value="11"/>
+            <SetBlackboard output_key="FAILURE" value="-11"/>
+
+            <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{RUNNING}"/>
+            <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{SUCCESS}"/>
+            <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{RUNNING}"/>
+            <ProcessCode process_code_topic="process_code" process_code_ack_topic="process_code_ack" process_code="{FAILURE}"/>
+        </Sequence>
+    </BehaviorTree>
+    <!-- ////////// -->
+</root>

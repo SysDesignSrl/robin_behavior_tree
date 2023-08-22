@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="TestTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="TestTree">
+		<Sequence>
+			<Semaphore request_topic="a_request" consensus_topic="a_consensus"/>
+			<Semaphore request_topic="b_request" consensus_topic="b_consensus"/>
+			<Semaphore request_topic="c_request" consensus_topic="c_consensus"/>
+			<Semaphore request_topic="d_request" consensus_topic="d_consensus"/>
+		</Sequence>
+    </BehaviorTree>
+    <!-- ////////// -->
+</root>

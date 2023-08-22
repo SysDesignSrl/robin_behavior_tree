@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+  <env name="ROSCONSOLE_CONFIG_FILE" value="$(dirname)/rosconsole.conf"/>
+  <arg name="bt_file" default="$(dirname)/bt_trees/common_action_tree.xml"/>
+
+  <!-- Test -->
+  <test test-name="common_action_test" pkg="robin_behavior_tree" type="common_action_test">
+    <param name="bt_file" value="$(arg bt_file)"/>
+  </test>
+
+</launch>
