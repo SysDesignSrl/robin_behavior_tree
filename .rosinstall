@@ -5,3 +5,4 @@
 - git:
     local-name: robin_bridge_generated
     uri: https://github.com/SysDesignSrl/robin_bridge_generated.git
+    version: unifarco
