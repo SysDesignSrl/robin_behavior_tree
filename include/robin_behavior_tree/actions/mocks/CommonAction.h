@@ -51,7 +51,13 @@ public:
   {
     execute = true;
     abort = false;
+
+    busy = false;
     done = true;
+    aborted = false;
+    error = false;
+    error_id = 0;
+
     return BT::NodeStatus::RUNNING;
   }
 
